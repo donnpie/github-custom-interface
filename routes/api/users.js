@@ -15,9 +15,13 @@ router.get('/:id', (req, res) => {
         .then(data => {
             results.push(data);
             //console.log(results);
+            console.log("Get request for user received correctly by server");
             res.json(results); 
         })
         .catch(err => console.log(err));
+
+    //Test code
+    //res.json({name: "My name"})
 
     //Query the GitLab api
     // const gitLabUri = 'https://gitlab.com/api/v4/users?username=';
@@ -58,6 +62,7 @@ router.get('/:id/repos', (req, res) => {
         .then(data => {
             results.push(data);
             //console.log(results);
+            console.log("Get request for repos received correctly by server");
             res.json(results); 
         })
         .catch(err => console.log(err));

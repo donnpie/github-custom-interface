@@ -1,0 +1,14 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    text-align: left;
+
+}
+
+.grid-item {
+
+}
+
+.avatar {
+    height: 100px;
+}
