@@ -22,6 +22,9 @@ app.use(cors({
 //Routes for frontend 
 const users = require('./routes/api/users');
 app.use('/api/users', users);
+const repos = require('./routes/api/repos');
+app.use('/api/repos', repos);
+
 
 app.route('*', (req, res) => {
     res.statusCode(404).send("404, not foud");
