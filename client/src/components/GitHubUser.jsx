@@ -16,7 +16,7 @@ function Users() {
 
     // Make get request to express server to find user
     useEffect(() => {
-        const endPoint = 'http://localhost:5000/api/users/' + id;
+        const endPoint = 'http://localhost:5000/api/users/github/' + id;
         fetch(endPoint)
             .then(res => res.json())
             .then((data) => {
@@ -40,7 +40,7 @@ function Users() {
                 <div className="grid-item"><a href={users[0].html_url} target="_blank" rel="noreferrer">Link to home page</a></div>
                 <div className="grid-item">Bio</div>
                 <div className="grid-item">{users[0].bio}</div>
-                <div className="grid-item"><Link title="Link to repos" href={'/repos/' + users[0].login}/></div>
+                <div className="grid-item"><Link title="Link to repos" href={'/repos/github/' + users[0].login}/></div>
             </div>
             </>
         );

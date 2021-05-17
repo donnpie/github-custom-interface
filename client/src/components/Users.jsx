@@ -6,35 +6,64 @@ import './Table.css';
                 
 function Users() {
     const { id } = useParams();
-    const [ users, setUsers ] = useState([]);
-
-    // Make get request to express server to find user
+    
+    // Make get request to express server to find github users
+    const [ gitHubUsers, setGitHubUsers ] = useState([]);
     useEffect(() => {
-        const endPoint = 'http://localhost:5000/api/users/' + id;
+        const endPoint = 'http://localhost:5000/api/users/github/' + id;
         fetch(endPoint)
             .then(res => res.json())
             .then((data) => {
-                setUsers(data);
+                setGitHubUsers(data);
             })
             .catch(err => console.log(err));
     }, [])
 
-    const renderUser = (user, idx) => {
+    // Make get request to express server to find gitlab users
+    const [ gitLabUsers, setGitLabUsers ] = useState([]);
+    useEffect(() => {
+        const endPoint = 'http://localhost:5000/api/users/gitlab/' + id;
+        fetch(endPoint)
+            .then(res => res.json())
+            .then((data) => {
+                //console.log('data', data);
+                setGitLabUsers(data);
+                //console.log('gitLabUsers', gitLabUsers);
+            })
+            .catch(err => console.log(err));
+    }, [])
+
+    const renderGitHubUser = (user, idx) => {
         //Generates the jsx for a single user
         return (
             <tr key={idx}>
                 <td>{user.login}</td>                  
-                <td><Link title="Link to user profile" href={'/user/' + user.login} /></td>
+                <td><Link title="Link to user profile" href={'/user/github/' + user.login} /></td>
                 <td><Link title="Link to home page" href={user.html_url} target="_blank" rel="noreferrer"/></td>           
             </tr>
         );
     }
+
+    const renderGitLabUser = (user, idx) => {
+        //Generates the jsx for a single user
+        return (
+            <tr key={idx}>
+                <td>{user.username}</td>                  
+                <td><Link title="Link to user profile" href={'/user/gitlab/' + user.id} /></td>
+                <td><Link title="Link to home page" href={user.web_url} target="_blank" rel="noreferrer"/></td>           
+            </tr>
+        );
+    }
     
-    const usersTableData = users.map((user, idx) => {
-        return renderUser(user, idx);
+    const gitHubUsersTableData = gitHubUsers.map((user, idx) => {
+        return renderGitHubUser(user, idx);
     });
 
-    const showTable = (users, title) => {
+    const gitLabUsersTableData = gitLabUsers.map((user, idx) => {
+        return renderGitLabUser(user, idx);
+    });
+
+    const showTable = (users, title, data) => {
         //Generates the jsx for multiple users
         return (
             <div className="table-container">
@@ -48,7 +77,7 @@ function Users() {
                     </tr>
                 </thead>
                 <tbody>
-                    {usersTableData}
+                    {data}
                 </tbody>
              </Table>
             </div>
@@ -56,7 +85,10 @@ function Users() {
     }
 
     return (
-        showTable(users, "Results from GitHub:")
+        <>
+        {showTable(gitHubUsers, "Results from GitHub:", gitHubUsersTableData)}
+        {showTable(gitLabUsers, "Results from GitLab:", gitLabUsersTableData)}
+        </>
     );
 }
 

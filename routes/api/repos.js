@@ -3,7 +3,7 @@ const router = express.Router();
 require('isomorphic-fetch'); //Required when using fetch from Node
 
 //Routes for searching a repo
-router.get('/:userId/:repoId', (req, res) => {
+router.get('/github/:userId/:repoId', (req, res) => {
     const userId = req.params.userId;
     const repoId = req.params.repoId;
     console.log('userId: ', userId);
@@ -52,7 +52,7 @@ router.get('/:userId/:repoId', (req, res) => {
     //res.send("Hello with id"); 
 });
 
-router.get('/:userId/:repoId/commits', (req, res) => {
+router.get('/github/:userId/:repoId/commits', (req, res) => {
     const userId = req.params.userId;
     const repoId = req.params.repoId;
     console.log('userId: ', userId);

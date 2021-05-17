@@ -10,7 +10,7 @@ function Commits() {
 
     // Make get request to express server to find repos
     useEffect(() => {
-        const endPoint = 'http://localhost:5000/api/repos/' + userId + '/' + repoId + '/commits';
+        const endPoint = 'http://localhost:5000/api/repos/github/' + userId + '/' + repoId + '/commits';
         fetch(endPoint)
             .then(res => res.json())
             .then((data) => {

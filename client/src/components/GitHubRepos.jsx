@@ -10,7 +10,7 @@ function Repos() {
 
     // Make get request to express server to find repos
     useEffect(() => {
-        const endPoint = 'http://localhost:5000/api/users/' + id + '/repos';
+        const endPoint = 'http://localhost:5000/api/users/github/' + id + '/repos';
         fetch(endPoint)
             .then(res => res.json())
             .then((data) => {
